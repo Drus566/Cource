@@ -1,0 +1,9 @@
+<div id="admin-page">
+    adminpage
+    <%= form_with url: '/', id: 'admin-form' do |f| %>
+        <%= f.number_field :value %>
+        <%= f.date_field :datetime, min: Date.today %>
+        <%= f.time_field :datetime, :ignore_date => true, value: "%H:%M", min: 'hh:mm:ss', max: 'hh:mm:ss' %>
+        <%= f.submit %>
+    <% end %>
+</div>
