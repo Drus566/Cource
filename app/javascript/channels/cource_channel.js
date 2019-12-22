@@ -5,8 +5,7 @@ consumer.subscriptions.create("CourceChannel", {
         console.log("Connected to the channel!");
     },
 
-    received(data) {
-        cource = data['cource']
+    received(data){
         console.log("Receiving")
         console.log(data['cource'])
         update_cource(data)
@@ -14,7 +13,7 @@ consumer.subscriptions.create("CourceChannel", {
 })
 
 var update_cource = function(data){
-    cource = document.getElementById('cource')
+    var cource = document.getElementById('cource')
     if (cource){
         console.log('Cource set')
         cource.innerText = data['cource']

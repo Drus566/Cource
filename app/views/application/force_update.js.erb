@@ -1,0 +1,5 @@
+var flash = document.getElementById("flash");
+console.log("<%= j render 'flash' %>")
+var flash_error = "<%= flash[:error] %>"
+flash.innerHTML = flash_error
+console.log('ggwp')

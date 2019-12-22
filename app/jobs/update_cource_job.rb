@@ -1,5 +1,5 @@
 class UpdateCourceJob < ApplicationJob
-    
+
     queue_as :low_priority
     after_perform :after_cource
 
@@ -12,9 +12,9 @@ class UpdateCourceJob < ApplicationJob
             if hash['cource'] != nil && hash['cource']['forced'] == false
                 cource = ParseCource.get_cource('https://cbr.ru/')
                 ActionCable.server.broadcast 'cource_channel', cource: cource
-                logger.info 'Perform update_cource_job'
+                puts "\n ~~~~~~~~~~~~~~~~~~~ UPDATE COURCE ~~~~~~~~~~~~~~~~~~~~~~\n\n"
             else 
-                logger.info 'Update_cource_job not performed, because cource is forced'
+                puts "\n ~~~~~~~~~~~~~~~~~~~ COURCE NOT UPDATE BECAUSE FORCED COURCE IS ACTIVE ~~~~~~~~~~~~~~~~~~\n\n"
             end
         end
     end
