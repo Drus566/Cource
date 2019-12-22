@@ -1,4 +1,7 @@
 class ApplicationJob < ActiveJob::Base
+  require 'get_cource'
+  require 'process_json'
+
   # Automatically retry jobs that encountered a deadlock
   # retry_on ActiveRecord::Deadlocked
 

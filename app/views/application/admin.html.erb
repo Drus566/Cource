@@ -1,9 +1,11 @@
 <div id="admin-page">
     adminpage
-    <%= form_with url: '/', id: 'admin-form' do |f| %>
-        <%= f.number_field :value %>
-        <%= f.date_field :datetime, min: Date.today %>
-        <%= f.time_field :datetime, :ignore_date => true, value: "%H:%M", min: 'hh:mm:ss', max: 'hh:mm:ss' %>
+    <%= form_with( url: '/force_update', id: 'admin-form', method: 'post') do |f| %>
+        <input id="cource_value" type="number" name="cource[cource][value]" value="<%= @forced_cource['cource']['value'] %>">
+        <input id="cource_date" type="text" name="cource[cource][date]" value="<%= @forced_cource['cource']['date'] %>">
+        <input id="cource_time" type="text" name="cource[cource][time]" value="<%= @forced_cource['cource']['time'] %>">
+        <input id="cource_forced" type="hidden" name="cource[cource][forced]" value="true" >
         <%= f.submit %>
     <% end %>
 </div>
+
