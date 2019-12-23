@@ -12,4 +12,6 @@ application.load(definitionsFromContext(context))
 
 application.register('flatpickr', Flatpickr)
 
+import('../styles/application.scss');
+
 
