@@ -18,15 +18,15 @@ class ApplicationController < ActionController::Base
     end
 
     def force_update
-        flash.discard
         @forced_cource = cource_params
         if valid_value? && valid_date? && valid_time? 
+            flash[:error] = ''
+            flash.discard(:error)
+            puts "~~~~~~~~~~~FLASH #{flash[:error].inspect}"
             time = Time.strptime(@forced_cource['cource']['time'], "%k:%M") 
             date = Date.strptime(@forced_cource['cource']['date'], '%d/%m/%Y')
             delay = get_wait_time(date, time)
             ForceUpdateCourceJob.set(wait: delay.seconds).perform_later(@forced_cource)
-            head :ok
-        else
         end
     end
 

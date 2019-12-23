@@ -6,65 +6,73 @@ module DataHelper
         forced['cource']['forced'] if forced != nil && forced['cource'] != nil  
     end
 
+    def valid_value?
+        value = @forced_cource['cource']['value'].to_s
+        if value.empty? 
+            flash[:error] = 'Value is empty' 
+            false
+        elsif value.size > 1 && value[0] == '0'  
+            flash[:error] = 'Value is zero' 
+            false
+        elsif value.size == 1 && value[0] == '0'
+            true
+        elsif (value =~ /\A[0-9]+\.{0,1}\d{1,4}\z/) != 0
+            flash[:error] = 'Value is not numeric' 
+            false
+        else
+            true
+        end
+    end
+
     def valid_date? 
-        flash[:error] = "Date is not valid"
         date = @forced_cource['cource']['date'].to_s
-        unless date.empty?
+        if date.empty?
+            flash[:error] = 'Date is empty'
+            false
+        else 
             begin 
-                Date.strptime(date, "%d/%m/%Y") >= Date.today
+                valid_date = Date.strptime(date, "%d/%m/%Y")
+                unless valid_date >= Date.today
+                    flash[:error] = 'Date is not correct'
+                    false
+                else
+                    true
+                end
             rescue ArgumentError
-                puts 'Date is not valid'
-                flash[:error] = "Date is not valid"
+                flash[:error] = 'Date is not valid'
+                false
             end
         end
     end
 
     def valid_time?
         time = @forced_cource['cource']['time'].to_s
-        date = @forced_cource['cource']['date']
-        unless time.empty?
-            if Date.strptime(date, "%d/%m/%Y") == Date.today
-                Time.strptime(time, "%k:%M") > Time.now
-            else
-                begin
-                    Time.strptime(time, "%k:%M") 
-                rescue ArgumentError
-                    puts 'Time is not valid'
-                    flash[:error] = "Time is not valid"
+        date = @forced_cource['cource']['date'].to_s
+        if time.empty?
+            flash[:error] = 'Time is empty' 
+            false
+        else
+            begin 
+                valid_time = Time.strptime(time, "%k:%M")
+                puts valid_time
+                if Date.strptime(date, "%d/%m/%Y") == Date.today
+                    unless valid_time > Time.now
+                        flash[:error] = 'Time is not correct'
+                        false
+                    else
+                        true
+                    end
+                else
+                    true
                 end
+            rescue ArgumentError
+                flash[:error] = 'Time is not valid'
+                false
             end
         end
     end
 
-    def valid_value?
-        value = @forced_cource['cource']['value'].to_s
-        unless value.empty?
-            value.delete(' ')
-            regexp = value =~ /^\d+\.{0,1}\d{0,4}$/
-            regexp_sequence_zeros = value =~ /^\0{2,+}\.{0,1}\0+$/
-            if regexp_sequence_zeros != 0
-                if regexp == 0 && value[0] == '0'
-                    unless (value.size == 1 && value[0] == '0') || (value.size > 2 && value[0] == '0' && value[1] == '.')
-                        flash[:error] = "Value is not valid"
-                        false
-                    end
-                elsif regexp == 0
-                    regexp
-                else
-                    puts 'Value is not valid'
-                    # ошибка последовательность нулей не отлавливается
-                    flash[:error] = "Value is not valid"
-                    false
-                end
-            else
-                flash[:error] = "Value is not be sequence of zeros"
-                false
-            end
-        else
-            flash[:error] = "Value must not be empty"
-            false
-        end
-    end
+    
 
     def get_wait_time(date, time)
         if date == Date.today
