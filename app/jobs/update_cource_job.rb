@@ -12,9 +12,6 @@ class UpdateCourceJob < ApplicationJob
             if hash['cource'] != nil && hash['cource']['forced'] == false
                 cource = ParseCource.get_cource('https://cbr.ru/')
                 ActionCable.server.broadcast 'cource_channel', cource: cource
-                puts "\n ~~~~~~~~~~~~~~~~~~~ UPDATE COURCE ~~~~~~~~~~~~~~~~~~~~~~\n\n"
-            else 
-                puts "\n ~~~~~~~~~~~~~~~~~~~ COURCE NOT UPDATE BECAUSE FORCED COURCE IS ACTIVE ~~~~~~~~~~~~~~~~~~\n\n"
             end
         end
     end

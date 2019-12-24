@@ -6,15 +6,17 @@ module DataHelper
         forced['cource']['forced'] if forced != nil && forced['cource'] != nil  
     end
 
-    def valid_value?
-        value = @forced_cource['cource']['value'].to_s
+    def valid_value?(value)
+        value = value.to_s
         if value.empty? 
             flash[:error] = 'Value is empty' 
             false
-        elsif value.size > 1 && value[0] == '0'  
+        elsif value.size > 1 && value[0] == '0' && value[1] != '.' 
             flash[:error] = 'Value is zero' 
             false
         elsif value.size == 1 && value[0] == '0'
+            true
+        elsif (value =~ /\A[0-9]{1,1}\z/)
             true
         elsif (value =~ /\A[0-9]+\.{0,1}\d{1,4}\z/) != 0
             flash[:error] = 'Value is not numeric' 
@@ -24,8 +26,8 @@ module DataHelper
         end
     end
 
-    def valid_date? 
-        date = @forced_cource['cource']['date'].to_s
+    def valid_date?(date)
+        date = date.to_s
         if date.empty?
             flash[:error] = 'Date is empty'
             false
@@ -45,9 +47,9 @@ module DataHelper
         end
     end
 
-    def valid_time?
-        time = @forced_cource['cource']['time'].to_s
-        date = @forced_cource['cource']['date'].to_s
+    def valid_time?(time, date)
+        time = time.to_s
+        date = date.to_s
         if time.empty?
             flash[:error] = 'Time is empty' 
             false
@@ -71,8 +73,6 @@ module DataHelper
             end
         end
     end
-
-    
 
     def get_wait_time(date, time)
         if date == Date.today

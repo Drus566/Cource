@@ -19,11 +19,14 @@ class ApplicationController < ActionController::Base
 
     def force_update
         @forced_cource = cource_params
-        if valid_value? && valid_date? && valid_time? 
+        forced_value = @forced_cource['cource']['value']
+        forced_date = @forced_cource['cource']['date']
+        forced_time = @forced_cource['cource']['time']
+        if valid_value?(forced_value) && valid_date?(forced_date) && valid_time?(forced_time, forced_date) 
             flash[:error] = ''
             flash.discard(:error)
-            time = Time.strptime(@forced_cource['cource']['time'], "%k:%M") 
-            date = Date.strptime(@forced_cource['cource']['date'], '%d/%m/%Y')
+            time = Time.strptime(forced_time, "%k:%M") 
+            date = Date.strptime(forced_date, '%d/%m/%Y')
             delay = get_wait_time(date, time)
             ForceUpdateCourceJob.set(wait: delay.seconds).perform_later(@forced_cource)
         end

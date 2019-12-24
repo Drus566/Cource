@@ -14,7 +14,6 @@ class ForceUpdateCourceJob < ApplicationJob
         ProcessJson.write_data('app/data/cource_data.json', cource)
         # делаем рассылку форсированного курса 
         ActionCable.server.broadcast 'cource_channel', cource: cource['cource']['value']
-        puts "\n~~~~~~~~~~~~~~~~~ FORCED COURCE IS ENQUEUE ~~~~~~~~~~~~~~~~\n\n"
     end
 
     def perform(cource)
@@ -30,7 +29,6 @@ class ForceUpdateCourceJob < ApplicationJob
             parse_cource = ParseCource.get_cource('https://cbr.ru/')
             # делаем рассылку курса
             ActionCable.server.broadcast 'cource_channel', cource: parse_cource
-            puts "\n~~~~~~~~~~~~~~~~~ FORCED COURCE IS PERFORMED ~~~~~~~~~~~~~~~~\n\n"
         end
         data_job = job_data(cource)
         # data_job = job_data(cource)

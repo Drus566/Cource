@@ -1,24 +1,31 @@
-# README
+# Get cource, set cource
+Rails app, that can get cource and set cource (dollar to ruble rate)
+  
+### Install
+`make build` — build project and install the necessary dependencies
+### Test
+`make test` — run tests
+### Use
+`make run`
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+request 'localhost:3000/' - the cource page, that get cource
+request 'localhost:3000/admin' - the admin page, that set cource:
+* Value - cource value 
+* Time  - time until which the cource will be set
+* Date  - date until which the cource will be set
 
-Things you may want to cover:
+### Software:
+* ruby 2.6.3p62 (2019-04-16 revision 67580) [x86_64-linux]
+* Rails 6.0.2.1
+* Ubuntu 18.04.3 LTS
 
-* Ruby version
+### Gems:
+* rspec 
+* foreman 
 
-* System dependencies
+### JavaScript frameworks:
+* Stimulus
+* Flatpickr
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### CSS frameworks:
+* Spectre.css
