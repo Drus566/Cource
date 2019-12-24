@@ -8,8 +8,8 @@ Rails app, that can get cource and set cource (dollar to ruble rate)
 ### Use
 `make run`
 
-request 'localhost:3000/' - the cource page, that get cource
-request 'localhost:3000/admin' - the admin page, that set cource:
+request `localhost:3000/` - the cource page, that get cource
+request `localhost:3000/admin` - the admin page, that set cource:
 * Value - cource value 
 * Time  - time until which the cource will be set
 * Date  - date until which the cource will be set
