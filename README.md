@@ -29,6 +29,3 @@ request `localhost:3000/admin` - the admin page, that set cource:
 
 ### CSS frameworks:
 * Spectre.css
-### 
-On heroku app server, you need to consider that the time is -3 from Moscow time
-https://protected-tundra-20163.herokuapp.com/
