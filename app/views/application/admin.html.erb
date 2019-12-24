@@ -5,7 +5,7 @@
             <%= flash[:error] %>
         </div>
         <%= form_with( url: '/force_update', id: 'admin-form', class: 'form-group col-3 p-centered', method: 'post') do |f| %>
-            <label class="form-label text-center bg-gray text-primary mt-2" for="cource-value">Value</label>
+            <label class="form-label text-center bg-dark text-secondary mt-2" for="cource-value">Value</label>
             <input id="cource-value" 
                 type="text" 
                 name="cource[cource][value]" 
@@ -13,7 +13,7 @@
                 placeholder="example: xxx.xxxx" 
                 class="form-input"
             >
-            <label class="form-label text-center bg-gray text-primary mt-2" for="cource-date">Date</label>
+            <label class="form-label text-center bg-dark text-secondary mt-2" for="cource-date">Date</label>
             <input id="cource-date" 
                 type="text" 
                 name="cource[cource][date]" 
@@ -24,7 +24,7 @@
                 data-flatpickr-date-format="d/m/Y"
                 class="form-input"
             >
-            <label class="form-label text-center bg-gray text-primary mt-2 " for="cource-time">Time</label>
+            <label class="form-label text-center bg-dark text-secondary mt-2 " for="cource-time">Time</label>
             <input id="cource_time" 
                 type="text" 
                 name="cource[cource][time]" 
